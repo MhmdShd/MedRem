@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {Key? key,
-      required this.icon,
+      required this.customIcon,
       required this.hint,
       required this.controller,
       this.inputFormatters,
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
       this.secure = false})
       : super(key: key);
 
-  final Image icon;
+  final Image customIcon;
   final String hint;
   final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
@@ -42,7 +42,9 @@ class CustomTextField extends StatelessWidget {
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(.33)),
               labelText: label,
-              prefixIcon: Tab(icon: icon),
+              prefixIcon: Tab(
+                icon: customIcon,
+              ),
               hintText: hint),
           obscureText: secure),
     );

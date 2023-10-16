@@ -90,16 +90,17 @@ class _newReminderState extends State<NewReminder> {
   @override
   Widget build(BuildContext context) {
     Image pillIcon = categoryIcons[_selectedCategory]!;
+    ;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
           CustomTextField(
-              icon: pillIcon,
+              customIcon: pillIcon,
               hint: 'Name',
               controller: _nameController),
           CustomTextField(
-              icon: Image.asset('assets/icons/note.png'),
+              customIcon: Image.asset('assets/icons/note.png',width: 35,height: 35,),
               hint: 'Description',
               controller: _descriptionController),
           Row(
@@ -108,8 +109,8 @@ class _newReminderState extends State<NewReminder> {
             children: [
               RadioCard(
                 userIcon: 'assets/icons/capsule.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.capsule;
@@ -119,8 +120,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/drop.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.drop;
@@ -130,8 +131,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/inhaler.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.inhaler;
@@ -141,8 +142,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/injection.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.injection;
@@ -152,8 +153,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/syrup.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.syrup;
@@ -163,8 +164,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/tablets.png',
-                iconWidth: 50,
-                iconheight: 50,
+                iconWidth: 35,
+                iconheight: 35,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.tablet;
