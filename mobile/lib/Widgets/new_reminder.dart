@@ -8,16 +8,16 @@ import 'package:iconsax/iconsax.dart';
 
 final formatter = DateFormat.yMd();
 
-class NewExpense extends StatefulWidget {
-  const NewExpense(this.onAddExpense, {super.key});
-  final void Function(Expense expense) onAddExpense;
+class NewReminder extends StatefulWidget {
+  const NewReminder(this.onAddReminder, {super.key});
+  final void Function(Reminder reminder) onAddReminder;
   @override
   State<StatefulWidget> createState() {
-    return _newExpenseState();
+    return _newReminderState();
   }
 }
 
-class _newExpenseState extends State<NewExpense> {
+class _newReminderState extends State<NewReminder> {
   Categories _selectedCategory = Categories.tablet;
   Frequency _selectedFrequency = Frequency.daily;
   final _nameController = TextEditingController();
@@ -43,7 +43,7 @@ class _newExpenseState extends State<NewExpense> {
     });
   }
 
-  void _submitExpense() {
+  void _submitReminder() {
     final enteredAmount = double.tryParse(_dosageController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
     if (_nameController.text.trim().isEmpty ||
@@ -65,8 +65,8 @@ class _newExpenseState extends State<NewExpense> {
       );
       return;
     }
-    widget.onAddExpense(
-      Expense(
+    widget.onAddReminder(
+      Reminder(
           name: _nameController.text,
           description: _descriptionController.text,
           dosage: double.parse(_dosageController.text),
@@ -240,7 +240,7 @@ class _newExpenseState extends State<NewExpense> {
                     child: const Text('Cancel'),
                   ),
                   ElevatedButton(
-                    onPressed: _submitExpense,
+                    onPressed: _submitReminder,
                     child: const Text('Save Reminder'),
                   ),
                 ],

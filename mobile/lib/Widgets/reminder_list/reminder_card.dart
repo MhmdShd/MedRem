@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/reminder.dart';
 
-class ExpenseItem extends StatelessWidget {
-  const ExpenseItem(this.expense, {super.key});
+class ReminderItem extends StatelessWidget {
+  const ReminderItem(this.reminder, {super.key});
 
-  final Expense expense;
+  final Reminder reminder;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -17,17 +17,17 @@ class ExpenseItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              expense.name,
+              reminder.name,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 4),
             Row(
               children: [
-                Text('${expense.dosage.toStringAsFixed(1)} mg'),
+                Text('${reminder.dosage.toStringAsFixed(1)} mg'),
                 const Spacer(),
                 Row(
                   children: [
-                    Tab(icon: categoryIcons[expense.categ]),
+                    Tab(icon: categoryIcons[reminder.categ]),
                     const SizedBox(
                       width: 8,
                     ),

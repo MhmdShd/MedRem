@@ -1,21 +1,20 @@
-import 'package:mobile/Widgets/chart/chart.dart';
 import 'package:mobile/Widgets/new_reminder.dart';
 import 'package:mobile/models/reminder.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/Widgets/reminder_list/reminder_list.dart';
 
 
-class Expenses extends StatefulWidget {
-  const Expenses({super.key});
+class Reminders extends StatefulWidget {
+  const Reminders({super.key});
   @override
   State<StatefulWidget> createState() {
-    return _ExpensesState();
+    return _RemindersState();
   }
 }
 
-class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [
-    Expense(
+class _RemindersState extends State<Reminders> {
+  final List<Reminder> _registeredReminders = [
+    Reminder(
       name: 'panadol',
       description: 'oiuwngw',
       frequency: Frequency.daily,
@@ -23,7 +22,7 @@ class _ExpensesState extends State<Expenses> {
       interval: 20,
       categ: Categories.tablet,
     ),
-    Expense(
+    Reminder(
       name: 'panadol',
       frequency: Frequency.daily,
       interval: 20,
@@ -33,27 +32,27 @@ class _ExpensesState extends State<Expenses> {
     )
   ];
 
-  void _addExpense(Expense expense) {
+  void _addReminder(Reminder reminder) {
     setState(() {
-      _registeredExpenses.add(expense);
+      _registeredReminders.add(reminder);
     });
   }
 
-  void _removeExpenses(Expense expense) {
-    final expenseIndex = _registeredExpenses.indexOf(expense);
+  void _removeReminders(Reminder reminder) {
+    final reminderIndex = _registeredReminders.indexOf(reminder);
     setState(() {
-      _registeredExpenses.remove(expense);
+      _registeredReminders.remove(reminder);
     });
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
-        content: const Text('Expense Deleted!'),
+        content: const Text('Reminder Deleted!'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
             setState(() {
-              _registeredExpenses.insert(expenseIndex, expense);
+              _registeredReminders.insert(reminderIndex, reminder);
             });
           },
         ),
@@ -61,13 +60,13 @@ class _ExpensesState extends State<Expenses> {
     );
   }
 
-  void _openAddExpenseOverlay() {
+  void _openAddReminderOverlay() {
     showModalBottomSheet(
       // isScrollControlled: true,
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => NewExpense(
-        _addExpense,
+      builder: (ctx) => NewReminder(
+        _addReminder,
       ),
     );
   }
@@ -77,23 +76,22 @@ class _ExpensesState extends State<Expenses> {
     Widget mainContent = Center(
       child: Text('No Reminders Found!'),
     );
-    if (_registeredExpenses.isNotEmpty) {
-      mainContent = ExpensesList(
-          expenses: _registeredExpenses, onRemoveExpense: _removeExpenses);
+    if (_registeredReminders.isNotEmpty) {
+      mainContent = ReminderList(
+          reminders: _registeredReminders, onRemoveReminder: _removeReminders);
     }
     return Scaffold(
       appBar: AppBar(
         title: const Text('MedRem'),
         actions: [
           IconButton(
-            onPressed: _openAddExpenseOverlay,
+            onPressed: _openAddReminderOverlay,
             icon: const Icon(Icons.add),
           )
         ],
       ),
       body: Column(
         children: [
-          // Chart(expenses: _registeredExpenses),
           Expanded(
             child: mainContent,
           ),

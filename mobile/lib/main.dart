@@ -51,7 +51,7 @@ void main() {
               ),
             ),
       ),
-      home: const Expenses(),
+      home: const Reminders(),
     ),
   );
 }

@@ -21,8 +21,8 @@ var categoryIcons = {
   Categories.injection: Image.asset('assets/icons/injection.png'),
 };
 
-class Expense {
-  Expense({
+class Reminder {
+  Reminder({
     required this.name,
     required this.description,
     required this.dosage,
@@ -42,19 +42,19 @@ class Expense {
 
 }
 
-class ExpenseBucket {
-  const ExpenseBucket({
+class ReminderBucket {
+  const ReminderBucket({
     required this.category,
-    required this.expenses,
+    required this.reminders,
   });
 
-  ExpenseBucket.forCategory(
-    List<Expense> allExpenses,
+  ReminderBucket.forCategory(
+    List<Reminder> allReminders,
     this.category,
   ) 
-  : expenses = allExpenses
-    .where((expense) => expense.categ == category).toList();
+  : reminders = allReminders
+    .where((reminder) => reminder.categ == category).toList();
   final Categories category;
-  final List<Expense> expenses;
+  final List<Reminder> reminders;
 
 }

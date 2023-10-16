@@ -2,26 +2,26 @@ import 'package:mobile/Widgets/reminder_list/reminder_card.dart';
 import 'package:mobile/models/reminder.dart';
 import 'package:flutter/material.dart';
 
-class ExpensesList extends StatelessWidget {
-  ExpensesList(
-      {super.key, required this.onRemoveExpense, required this.expenses});
+class ReminderList extends StatelessWidget {
+  ReminderList(
+      {super.key, required this.onRemoveReminder, required this.reminders});
 
-  final List<Expense> expenses;
-  final void Function(Expense expense) onRemoveExpense;
+  final List<Reminder> reminders;
+  final void Function(Reminder reminder) onRemoveReminder;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: expenses.length,
+      itemCount: reminders.length,
       itemBuilder: (ctx, index) => Dismissible(
-        key: ValueKey(expenses[index]),
+        key: ValueKey(reminders[index]),
         background: Container(
           color: Theme.of(context).colorScheme.error.withOpacity(0.6),
           margin: Theme.of(context).cardTheme.margin,
         ),
         onDismissed: (direction) {
-          onRemoveExpense(expenses[index]);
+          onRemoveReminder(reminders[index]);
         },
-        child: ExpenseItem(expenses[index]),
+        child: ReminderItem(reminders[index]),
       ),
     );
   }
