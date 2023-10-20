@@ -89,18 +89,24 @@ class _newReminderState extends State<NewReminder> {
 
   @override
   Widget build(BuildContext context) {
-    Image pillIcon = categoryIcons[_selectedCategory]!;
+    Image pillIcon = Image.asset(
+      categoryIcons[_selectedCategory]!,
+      width: 25,
+      height: 25,
+    );
     ;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
           CustomTextField(
-              customIcon: pillIcon,
-              hint: 'Name',
-              controller: _nameController),
+              customIcon: pillIcon, hint: 'Name', controller: _nameController),
           CustomTextField(
-              customIcon: Image.asset('assets/icons/note.png',width: 35,height: 35,),
+              customIcon: Image.asset(
+                'assets/icons/note.png',
+                width: 25,
+                height: 25,
+              ),
               hint: 'Description',
               controller: _descriptionController),
           Row(
@@ -109,8 +115,8 @@ class _newReminderState extends State<NewReminder> {
             children: [
               RadioCard(
                 userIcon: 'assets/icons/capsule.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.capsule;
@@ -120,8 +126,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/drop.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.drop;
@@ -131,8 +137,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/inhaler.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.inhaler;
@@ -142,8 +148,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/injection.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.injection;
@@ -153,8 +159,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/syrup.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.syrup;
@@ -164,8 +170,8 @@ class _newReminderState extends State<NewReminder> {
               ),
               RadioCard(
                 userIcon: 'assets/icons/tablets.png',
-                iconWidth: 35,
-                iconheight: 35,
+                iconWidth: 45,
+                iconheight: 45,
                 onTap: () {
                   setState(() {
                     _selectedCategory = Categories.tablet;
@@ -178,13 +184,17 @@ class _newReminderState extends State<NewReminder> {
           Row(
             children: [
               Expanded(
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: _dosageController,
-                  decoration: const InputDecoration(
-                    prefixText: 'mg',
-                    label: Text('Dosage'),
+                child: CustomTextField(
+                  customIcon: Image.asset(
+                    'assets/icons/weigh.png',
+                    width: 25,
+                    height: 25,
                   ),
+                  inputType: TextInputType.number,
+                  
+                  controller: _dosageController,
+                  label: 'mg',
+                  hint: 'Dosage',
                 ),
               ),
               const SizedBox(

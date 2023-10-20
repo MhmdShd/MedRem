@@ -27,7 +27,7 @@ class ReminderItem extends StatelessWidget {
                 const Spacer(),
                 Row(
                   children: [
-                    Tab(icon: categoryIcons[reminder.categ]),
+                    Tab(icon: Image.asset(categoryIcons[reminder.categ]!)),
                     const SizedBox(
                       width: 8,
                     ),

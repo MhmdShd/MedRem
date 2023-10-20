@@ -13,12 +13,12 @@ enum Categories { syrup, tablet, capsule, drop, inhaler, injection }
 enum Frequency { daily, weekly, monthly, yearly}
 
 var categoryIcons = {
-  Categories.syrup: Image.asset('assets/icons/syrup.png'),
-  Categories.tablet: Image.asset('assets/icons/tablets.png'),
-  Categories.capsule: Image.asset('assets/icons/capsule.png'),
-  Categories.drop: Image.asset('assets/icons/drop.png'),
-  Categories.inhaler: Image.asset('assets/icons/inhaler.png'),
-  Categories.injection: Image.asset('assets/icons/injection.png'),
+  Categories.syrup: 'assets/icons/syrup.png',
+  Categories.tablet: 'assets/icons/tablets.png',
+  Categories.capsule: 'assets/icons/capsule.png',
+  Categories.drop: 'assets/icons/drop.png',
+  Categories.inhaler: 'assets/icons/inhaler.png',
+  Categories.injection: 'assets/icons/injection.png',
 };
 
 class Reminder {

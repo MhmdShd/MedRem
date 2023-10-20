@@ -28,22 +28,33 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.secondary),
-        borderRadius: BorderRadius.circular(12),
-      ),
       child: TextFormField(
           controller: controller,
           inputFormatters: inputFormatters,
           validator: validator,
           textAlignVertical: TextAlignVertical.center,
+          keyboardType: inputType,
           decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    width: 1.5, color: Theme.of(context).colorScheme.secondaryContainer),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    width: 1.5, color: Theme.of(context).colorScheme.secondary),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              border: InputBorder.none,
               labelStyle: TextStyle(
                   color:
                       Theme.of(context).colorScheme.onSurface.withOpacity(.33)),
               labelText: label,
-              prefixIcon: Tab(
-                icon: customIcon,
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Tab(
+                  icon: customIcon,
+                ),
               ),
               hintText: hint),
           obscureText: secure),

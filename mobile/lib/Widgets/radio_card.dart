@@ -31,8 +31,8 @@ class RadioCard extends StatelessWidget {
               color: (active)
                   ? Theme.of(context).colorScheme.secondaryContainer
                   : Theme.of(context).colorScheme.secondary,
-              width: 1),
-          borderRadius: BorderRadius.circular(12),
+              width: 1.5),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: (userIcon == null)
             ? Text(
@@ -46,11 +46,15 @@ class RadioCard extends StatelessWidget {
                           .withOpacity(.33),
                 ),
               )
-            : Image.asset(
-                userIcon!,
-                height: iconWidth,
-                width: iconWidth,
-              ),
+            : Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Image.asset(
+                
+                  userIcon!,
+                  height: iconWidth,
+                  width: iconWidth,
+                ),
+            ),
       ),
     );
   }
