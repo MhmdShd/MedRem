@@ -49,3 +49,9 @@ app.*.map.json
 /android/
 /ios/
 *.vsidx
+/.vs/Medical Project/v17/.wsuo
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/Backend/.vs
+/Backend/MedRem/bin/Debug/net6.0
+/Backend/MedRem/obj/Debug/net6.0
