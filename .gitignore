@@ -55,3 +55,4 @@ app.*.map.json
 /Backend/.vs
 /Backend/MedRem/bin/Debug/net6.0
 /Backend/MedRem/obj/Debug/net6.0
+/.vs/slnx.sqlite-journal
