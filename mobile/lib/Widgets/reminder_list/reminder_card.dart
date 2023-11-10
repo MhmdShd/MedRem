@@ -23,7 +23,7 @@ class ReminderItem extends StatelessWidget {
             const SizedBox(height: 4),
             Row(
               children: [
-                Text('${reminder.dosage.toStringAsFixed(1)} mg'),
+                Text(reminder.quantity.toStringAsFixed(1)),
                 const Spacer(),
                 Row(
                   children: [

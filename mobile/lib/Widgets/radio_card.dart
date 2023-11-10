@@ -7,11 +7,11 @@ class RadioCard extends StatelessWidget {
       this.userIcon,
       required this.active,
       this.text,
-      required this.iconWidth,
-      required this.iconheight})
+      this.iconWidth,
+      this.iconheight})
       : super(key: key);
-  final double iconWidth;
-  final double iconheight;
+  final double? iconWidth;
+  final double? iconheight;
   final bool active;
   final VoidCallback? onTap;
   final String? text;
@@ -28,10 +28,10 @@ class RadioCard extends StatelessWidget {
         height: 44,
         decoration: BoxDecoration(
           border: Border.all(
-              color: (active)
+              width: 1.5,
+              color: (!active)
                   ? Theme.of(context).colorScheme.secondaryContainer
-                  : Theme.of(context).colorScheme.secondary,
-              width: 1.5),
+                  : Theme.of(context).colorScheme.secondary),
           borderRadius: BorderRadius.circular(20),
         ),
         child: (userIcon == null)
@@ -40,20 +40,26 @@ class RadioCard extends StatelessWidget {
                 style: TextStyle(
                   color: (active)
                       ? Theme.of(context).colorScheme.onSurface
+                          
                       : Theme.of(context)
                           .colorScheme
-                          .onSurface
-                          .withOpacity(.33),
+                          .onSurface.withOpacity(.44),
                 ),
               )
             : Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Image.asset(
-                
-                  userIcon!,
-                  height: iconWidth,
-                  width: iconWidth,
-                ),
+              child:  Image.asset(
+                    userIcon!,
+                    color: (active)
+                      ? Theme.of(context).colorScheme.onSurface
+                          
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface.withOpacity(.44),
+                    height: iconWidth,
+                    width: iconWidth,
+                  
+              ),
             ),
       ),
     );

@@ -21,6 +21,7 @@ class ReminderList extends StatelessWidget {
         onDismissed: (direction) {
           onRemoveReminder(reminders[index]);
         },
+        
         child: ReminderItem(reminders[index]),
       ),
     );
