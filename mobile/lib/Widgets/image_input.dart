@@ -12,7 +12,8 @@ class imageInput extends StatefulWidget {
 }
 
 class _imageInputState extends State<imageInput> {
-  String? _selectedImage;
+  File? _selectedImage;
+  String? _selectedImageName;
   void _takePicture() async {
     final imagePicker = ImagePicker();
     final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
@@ -20,7 +21,8 @@ class _imageInputState extends State<imageInput> {
       return;
     }
     setState(() {
-      _selectedImage = pickedImage.name;
+      _selectedImage = File(pickedImage.path);
+      _selectedImageName = pickedImage.name;
     });
   }
 
@@ -34,7 +36,7 @@ class _imageInputState extends State<imageInput> {
     if (_selectedImage != null) {
       content = TextButton.icon(
         icon: const Icon(Icons.camera),
-        label: Text(_selectedImage!),
+        label: Text(_selectedImageName!),
         onPressed: _takePicture,
       );
     }
