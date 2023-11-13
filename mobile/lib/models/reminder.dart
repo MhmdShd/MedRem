@@ -21,12 +21,28 @@ var categoryIcons = {
   Categories.injection: 'assets/icons/injection.png',
 };
 
+var categoryValue = {
+  Categories.syrup: 'syrup',
+  Categories.tablet: 'tablet',
+  Categories.capsule: 'capsule',
+  Categories.drop: 'drop',
+  Categories.inhaler: 'inhaler',
+  Categories.injection: 'injection',
+};
+var categoryUnit = {
+  Categories.syrup: 'ml',
+  Categories.tablet: 'pcs',
+  Categories.capsule: 'pcs',
+  Categories.drop: 'drop',
+  Categories.inhaler: 'press',
+  Categories.injection: 'ml',
+};
 class Reminder {
   Reminder({
     required this.name,
     required this.description,
     required this.quantity,
-    // required this.frequency,
+    required this.quantityUnit,
     required this.interval,
     required this.color,
     required this.categ,
@@ -37,8 +53,9 @@ class Reminder {
   final String name;
   final String description;
   final double quantity;
+  final String quantityUnit;
   // final Frequency frequency;
-  final int interval;
+  final String interval;
   final String color;
   final Categories categ;
 

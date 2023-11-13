@@ -3,6 +3,7 @@ import 'package:mobile/Widgets/Report.dart';
 import 'package:mobile/models/reminder.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/Widgets/reminder_list/reminder_list.dart';
+import 'package:mobile/Widgets/test.dart';
 
 class Reminders extends StatefulWidget {
   const Reminders({super.key});
@@ -20,14 +21,16 @@ class _RemindersState extends State<Reminders> {
       color:'White',
       // frequency: Frequency.daily,
       quantity: 50,
-      interval: 20,
+      quantityUnit: 'pcs',
+      interval: '20',
       categ: Categories.tablet,
     ),
     Reminder(
       name: 'panadol',
       // frequency: Frequency.daily,
-      interval: 20,
+      interval: '20',
       color:'White',
+      quantityUnit: 'pcs',
       description: 'oiuwngw',
       quantity: 50,
       categ: Categories.tablet,

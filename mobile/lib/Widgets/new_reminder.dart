@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:mobile/Widgets/image_input.dart';
-
 import 'package:mobile/pages/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +8,9 @@ import 'package:mobile/models/reminder.dart';
 import 'package:mobile/Widgets/text_field.dart';
 import 'package:mobile/Widgets/radio_card.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mobile/Widgets/test.dart';
+import 'package:http/http.dart' as http;
+import 'package:json_serializable/json_serializable.dart';
 
 final formatter = DateFormat.yMd();
 
@@ -49,7 +52,7 @@ class _newReminderState extends State<NewReminder> {
     });
   }
 
-  void _submitReminder() {
+  Future<void> _submitReminder() async {
     final enteredAmount = double.tryParse(_quantityController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
     log(_selectedDays.toString());
@@ -78,12 +81,56 @@ class _newReminderState extends State<NewReminder> {
         name: _nameController.text,
         description: _descriptionController.text,
         quantity: double.parse(_quantityController.text),
+        quantityUnit: categoryUnit[_selectedCategory]!,
         color: _pillColorController.text,
-        // frequency: _selectedFrequency,
-        interval: int.parse(getInterval(_selectedDate!).toString()),
+        interval: _selectedDate!.toString(),
         categ: _selectedCategory,
       ),
     );
+    var message = {
+      'name': _nameController.text,
+      'description': _descriptionController.text,
+      'quantity': double.parse(_quantityController.text),
+      'quantityUnit': categoryUnit[_selectedCategory]!,
+      'color': _pillColorController.text,
+      'interval': _selectedDate!.toString(),
+      'categ': categoryValue[_selectedCategory]
+    };
+    Map<String, dynamic> message1 = {
+      'name': _nameController.text,
+      'description': _descriptionController.text,
+      'quantity': double.parse(_quantityController.text),
+      'quantityUnit': categoryUnit[_selectedCategory]!,
+      'color': _pillColorController.text,
+      'interval': _selectedDate!.toString(),
+      'categ': categoryValue[_selectedCategory]
+    };
+
+    String formattedRequestBody(Map<String, dynamic> message) {
+      var jsonMessage = jsonEncode(message);
+      // Pretty print the JSON with line breaks and indentations
+      var formattedString =
+          const JsonEncoder.withIndent('    ').convert(message);
+      // To match your exact format with \r\n line endings
+      return formattedString.replaceAll('\n', '\r\n');
+    }
+
+    var requestBody = formattedRequestBody(message1);
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST', Uri.parse('http://localhost4200/api/schedule/Create'));
+    request.body = requestBody;
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+
+    print(message);
     Navigator.pop(context);
   }
 
@@ -309,7 +356,8 @@ class _newReminderState extends State<NewReminder> {
                   ),
                   inputType: TextInputType.number,
                   controller: _quantityController,
-                  label: 'Quantity',
+                  hint: "Quantity",
+                  label: categoryUnit[_selectedCategory],
                 ),
               ),
               const SizedBox(
@@ -329,41 +377,29 @@ class _newReminderState extends State<NewReminder> {
               ),
             ],
           ),
-          CustomTextField(
-            customIcon: Image.asset(
-              'assets/icons/paint.png',
-              width: 25,
-              height: 25,
-            ),
-            label: 'Color',
-            controller: _pillColorController,
-          ),
           Row(
             children: [
-              // DropdownButton(
-              //   value: _selectedFrequency,
-              //   items: Frequency.values
-              //       .map((e) => DropdownMenuItem(
-              //             value: e,
-              //             child: Text(e.name.toUpperCase()),
-              //           ))
-              //       .toList(),
-              //   onChanged: (value) {
-              //     if (value == null) {
-              //       return;
-              //     }
-              //     setState(
-              //       () {
-              //         _selectedFrequency = value;
-              //       },
-              //     );
-              //   },
-              // ),
+              Expanded(
+                child: CustomTextField(
+                  customIcon: Image.asset(
+                    'assets/icons/paint.png',
+                    width: 25,
+                    height: 25,
+                  ),
+                  label: 'Color',
+                  controller: _pillColorController,
+                ),
+              ),
+              Expanded(child: imageInput())
+            ],
+          ),
+
+          Row(
+            children: [
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(child: imageInput()),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -382,6 +418,7 @@ class _newReminderState extends State<NewReminder> {
               ),
             ],
           ),
+          // MultiTimePickerInput(),
         ],
       ),
     );

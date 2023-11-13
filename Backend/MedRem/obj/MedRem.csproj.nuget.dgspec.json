@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Ali\\WORK\\Medical Project\\Backend\\MedRem\\MedRem.csproj": {}
+    "C:\\Users\\MHD\\Desktop\\Flutter\\MedRem\\MedRem\\Backend\\MedRem\\MedRem.csproj": {}
   },
   "projects": {
-    "D:\\Ali\\WORK\\Medical Project\\Backend\\MedRem\\MedRem.csproj": {
+    "C:\\Users\\MHD\\Desktop\\Flutter\\MedRem\\MedRem\\Backend\\MedRem\\MedRem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Ali\\WORK\\Medical Project\\Backend\\MedRem\\MedRem.csproj",
+        "projectUniqueName": "C:\\Users\\MHD\\Desktop\\Flutter\\MedRem\\MedRem\\Backend\\MedRem\\MedRem.csproj",
         "projectName": "MedRem",
-        "projectPath": "D:\\Ali\\WORK\\Medical Project\\Backend\\MedRem\\MedRem.csproj",
-        "packagesPath": "C:\\Users\\alimr\\.nuget\\packages\\",
-        "outputPath": "D:\\Ali\\WORK\\Medical Project\\Backend\\MedRem\\obj\\",
+        "projectPath": "C:\\Users\\MHD\\Desktop\\Flutter\\MedRem\\MedRem\\Backend\\MedRem\\MedRem.csproj",
+        "packagesPath": "C:\\Users\\MHD\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MHD\\Desktop\\Flutter\\MedRem\\MedRem\\Backend\\MedRem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\alimr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MHD\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -74,7 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

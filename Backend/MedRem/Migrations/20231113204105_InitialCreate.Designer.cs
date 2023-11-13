@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedRem.Migrations
 {
     [DbContext(typeof(MedRemDbContext))]
-    [Migration("20231110210326_InitialCreate")]
+    [Migration("20231113204105_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

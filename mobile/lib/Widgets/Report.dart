@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/Widgets/image_input.dart';
 import 'package:mobile/Widgets/text_field.dart';
 
+
 class Report extends StatefulWidget {
   const Report(this.submitReport, {super.key});
   final void Function(Report report) submitReport;
@@ -85,7 +86,7 @@ class _Report extends State<Report> {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

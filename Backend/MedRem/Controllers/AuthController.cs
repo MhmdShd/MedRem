@@ -20,7 +20,7 @@ namespace MedRem.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(User userDto)
+        public async Task<ActionResult<User>> Register(User? userDto)
         {
             if (await UserExists(userDto.Username))
                 return BadRequest("Username is already taken");

@@ -23,7 +23,7 @@ class ReminderItem extends StatelessWidget {
             const SizedBox(height: 4),
             Row(
               children: [
-                Text(reminder.quantity.toStringAsFixed(1)),
+                Text(reminder.quantity.toStringAsFixed(1) + ' '+reminder.quantityUnit),
                 const Spacer(),
                 Row(
                   children: [
