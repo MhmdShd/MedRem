@@ -9,8 +9,7 @@ import 'package:mobile/Widgets/text_field.dart';
 import 'package:mobile/Widgets/radio_card.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mobile/Widgets/test.dart';
-import 'package:http/http.dart' as http;
-import 'package:json_serializable/json_serializable.dart';
+// import 'package:http/http.dart' as http;
 
 final formatter = DateFormat.yMd();
 
@@ -96,41 +95,41 @@ class _newReminderState extends State<NewReminder> {
       'interval': _selectedDate!.toString(),
       'categ': categoryValue[_selectedCategory]
     };
-    Map<String, dynamic> message1 = {
-      'name': _nameController.text,
-      'description': _descriptionController.text,
-      'quantity': double.parse(_quantityController.text),
-      'quantityUnit': categoryUnit[_selectedCategory]!,
-      'color': _pillColorController.text,
-      'interval': _selectedDate!.toString(),
-      'categ': categoryValue[_selectedCategory]
-    };
-
-    String formattedRequestBody(Map<String, dynamic> message) {
-      var jsonMessage = jsonEncode(message);
-      // Pretty print the JSON with line breaks and indentations
-      var formattedString =
-          const JsonEncoder.withIndent('    ').convert(message);
-      // To match your exact format with \r\n line endings
-      return formattedString.replaceAll('\n', '\r\n');
-    }
-
-    var requestBody = formattedRequestBody(message1);
-    var headers = {'Content-Type': 'application/json'};
-    var request = http.Request(
-        'POST', Uri.parse('http://localhost4200/api/schedule/Create'));
-    request.body = requestBody;
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
-    }
-
     print(message);
+    // Map<String, dynamic> message1 = {
+    //   'name': _nameController.text,
+    //   'description': _descriptionController.text,
+    //   'quantity': double.parse(_quantityController.text),
+    //   'quantityUnit': categoryUnit[_selectedCategory]!,
+    //   'color': _pillColorController.text,
+    //   'interval': _selectedDate!.toString(),
+    //   'categ': categoryValue[_selectedCategory]
+    // };
+
+    // String formattedRequestBody(Map<String, dynamic> message) {
+    //   var jsonMessage = jsonEncode(message);
+    //   // Pretty print the JSON with line breaks and indentations
+    //   var formattedString =
+    //       const JsonEncoder.withIndent('    ').convert(message);
+    //   // To match your exact format with \r\n line endings
+    //   return formattedString.replaceAll('\n', '\r\n');
+    // }
+
+    // var requestBody = formattedRequestBody(message1);
+    // var headers = {'Content-Type': 'application/json'};
+    // var request = http.Request(
+    //     'POST', Uri.parse('http://localhost4200/api/schedule/Create'));
+    // request.body = requestBody;
+    // request.headers.addAll(headers);
+
+    // http.StreamedResponse response = await request.send();
+
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    // } else {
+    //   print(response.reasonPhrase);
+    // }
+
     Navigator.pop(context);
   }
 
