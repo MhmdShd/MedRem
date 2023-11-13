@@ -56,3 +56,4 @@ app.*.map.json
 /Backend/MedRem/bin/Debug/net6.0
 /Backend/MedRem/obj/Debug/net6.0
 /.vs/slnx.sqlite-journal
+/Backend/MedRem/appsettings.json
