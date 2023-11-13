@@ -25,9 +25,10 @@ class Reminder {
   Reminder({
     required this.name,
     required this.description,
-    required this.dosage,
-    required this.frequency,
+    required this.quantity,
+    // required this.frequency,
     required this.interval,
+    required this.color,
     required this.categ,
 
   }) : id = uuid.v4();
@@ -35,9 +36,10 @@ class Reminder {
   final String id;
   final String name;
   final String description;
-  final double dosage;
-  final Frequency frequency;
+  final double quantity;
+  // final Frequency frequency;
   final int interval;
+  final String color;
   final Categories categ;
 
 }

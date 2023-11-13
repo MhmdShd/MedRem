@@ -1,8 +1,8 @@
 import 'package:mobile/Widgets/new_reminder.dart';
+import 'package:mobile/Widgets/Report.dart';
 import 'package:mobile/models/reminder.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/Widgets/reminder_list/reminder_list.dart';
-
 
 class Reminders extends StatefulWidget {
   const Reminders({super.key});
@@ -17,17 +17,19 @@ class _RemindersState extends State<Reminders> {
     Reminder(
       name: 'panadol',
       description: 'oiuwngw',
-      frequency: Frequency.daily,
-      dosage: 50,
+      color:'White',
+      // frequency: Frequency.daily,
+      quantity: 50,
       interval: 20,
       categ: Categories.tablet,
     ),
     Reminder(
       name: 'panadol',
-      frequency: Frequency.daily,
+      // frequency: Frequency.daily,
       interval: 20,
+      color:'White',
       description: 'oiuwngw',
-      dosage: 50,
+      quantity: 50,
       categ: Categories.tablet,
     )
   ];
@@ -38,6 +40,11 @@ class _RemindersState extends State<Reminders> {
     });
   }
 
+ void _submitReport(Report report) {
+    setState(() {
+      //
+    });
+  }
   void _removeReminders(Reminder reminder) {
     final reminderIndex = _registeredReminders.indexOf(reminder);
     setState(() {
@@ -62,7 +69,6 @@ class _RemindersState extends State<Reminders> {
 
   void _openAddReminderOverlay() {
     showModalBottomSheet(
-      // isScrollControlled: true,
       context: context,
       isScrollControlled: true,
       builder: (ctx) => NewReminder(
@@ -71,9 +77,16 @@ class _RemindersState extends State<Reminders> {
     );
   }
 
+  void _openReportOverlay() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => Report(_submitReport),
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
+    Widget mainContent = const Center(
       child: Text('No Reminders Found!'),
     );
     if (_registeredReminders.isNotEmpty) {
@@ -85,8 +98,8 @@ class _RemindersState extends State<Reminders> {
         title: const Text('MedRem'),
         actions: [
           IconButton(
-            onPressed: _openAddReminderOverlay,
-            icon: const Icon(Icons.add),
+            onPressed: _openReportOverlay,
+            icon: const Icon(Icons.note_add),
           )
         ],
       ),
@@ -95,6 +108,19 @@ class _RemindersState extends State<Reminders> {
           Expanded(
             child: mainContent,
           ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: _openAddReminderOverlay,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: const Icon(Icons.add),
+              ),
+            ),
+          )
         ],
       ),
     );
