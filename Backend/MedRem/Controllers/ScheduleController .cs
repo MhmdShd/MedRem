@@ -20,21 +20,27 @@ namespace MedRem.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult> CreateSchedule([FromBody] ScheduleDto scheduleDto, int userId = 1)
         {
+            string frequencyCommaSeparated = String.Join(", ", scheduleDto.Frequency);
             if (scheduleDto.PillId.HasValue && _context.Pills.Any(p => p.Id == scheduleDto.PillId.Value))
             {
-                var schedule = new PillSchedule
-                {
-                    UserId = scheduleDto.UserId,
-                    PillId = scheduleDto.PillId.Value,
-                    Frequency = scheduleDto.Frequency,
-                    Dosage = scheduleDto.Dosage,
-                    FinishDate = scheduleDto.FinishDate,
-                    StartDate = DateTime.Now.ToString(),
-                    Time = scheduleDto.Time,
-                };
 
-                _context.PillSchedules.Add(schedule);
-                await _context.SaveChangesAsync();
+                foreach (var time in scheduleDto.Time)
+                {
+
+                    var schedule = new PillSchedule
+                    {
+                        UserId = scheduleDto.UserId,
+                        PillId = scheduleDto.PillId.Value,
+                        Frequency = frequencyCommaSeparated,
+                        Dosage = scheduleDto.Dosage,
+                        FinishDate = scheduleDto.FinishDate,
+                        StartDate = DateTime.Now.ToString(),
+                        Time = TimeOnly.Parse(time),
+                    };
+                    _context.PillSchedules.Add(schedule);
+                    await _context.SaveChangesAsync();
+                }
+
 
             }
             else if (!scheduleDto.PillId.HasValue && !string.IsNullOrEmpty(scheduleDto.PillName))
@@ -54,20 +60,31 @@ namespace MedRem.Controllers
                 _context.Pills.Add(pill);
                 await _context.SaveChangesAsync();
 
-                var schedule = new PillSchedule
+                foreach (var time in scheduleDto.Time)
                 {
-                    UserId = scheduleDto.UserId,
-                    PillId = pill.Id,
-                    Frequency = scheduleDto.Frequency,
-                    Time = scheduleDto.Time,
-                    FinishDate = scheduleDto.FinishDate,
-                    StartDate = DateTime.Now.ToString(),
-                    Dosage = scheduleDto.Dosage,
-                };
 
-                _context.PillSchedules.Add(schedule);
-                await _context.SaveChangesAsync();
+                    //var schedule = new PillSchedule
+                    //{
+                    //    UserId = scheduleDto.UserId,
+                    //    PillId = scheduleDto.PillId.Value,
+                    //    Frequency = frequencyCommaSeparated,
+                    //    Dosage = scheduleDto.Dosage,
+                    //    FinishDate = scheduleDto.FinishDate,
+                    //    StartDate = DateTime.Now.ToString(),
+                    //    Time = TimeOnly.Parse(time),
+                    //};
+                    var schedule = new PillSchedule();
+                    schedule.UserId=scheduleDto.UserId;
+                    schedule.PillId = pill.Id ;
+                    schedule.Frequency = frequencyCommaSeparated; 
+                    schedule.Dosage = scheduleDto.Dosage; ;
+                    schedule.FinishDate = scheduleDto.FinishDate; 
+                    schedule.StartDate = DateTime.Now.ToString(); 
+                    schedule.Time = TimeOnly.Parse(time);
 
+                    _context.PillSchedules.Add(schedule);
+                    await _context.SaveChangesAsync();
+                }
             }
 
 
@@ -75,12 +92,28 @@ namespace MedRem.Controllers
         }
 
         [HttpGet("ForUser/{userId}")]
+        //public async Task<ActionResult<IEnumerable<PillScheduleDto>>> GetSchedule(int userId)
+        //{
+        //    var schedules = await _context.PillSchedules.Include(x => x.Pill)
+        //                                   .Where(s => s.UserId == userId)
+        //                                   .Select(s => new PillScheduleDto
+        //                                   {
+        //                                        Map properties to DTO
+        //                                   })
+        //                                   .ToListAsync();
+        //    if (schedules == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return schedules;
+        //}
         public async Task<ActionResult<IEnumerable<PillSchedule>>> GetSchedule(int userId)
         {
-            var schedules = await _context.PillSchedules
-                .Include(s => s.Pill)
+            var schedules = await _context.PillSchedules.Include(x=>x.Pill)
                                           .Where(s => s.UserId == userId)
                                             .ToListAsync();
+
+
             if (schedules == null)
             {
                 return NotFound();

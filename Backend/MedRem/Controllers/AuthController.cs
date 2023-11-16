@@ -20,7 +20,7 @@ namespace MedRem.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(User? userDto)
+        public async Task<ActionResult<User>> Register(UserDto userDto)
         {
             if (await UserExists(userDto.Username))
                 return BadRequest("Username is already taken");
@@ -29,6 +29,7 @@ namespace MedRem.Controllers
 
             var user = new User
             {
+                Name=userDto.Name,
                 Username = userDto.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDto.Password)),
                 PasswordSalt = hmac.Key

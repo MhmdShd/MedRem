@@ -11,21 +11,24 @@ builder.Services.AddDbContext<MedRemDbContext>(options =>
 // Add services to the container.
 //builder.Services.AddControllers().AddJsonOptions(x =>
 //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+        app.UseHsts();
+    }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.UseRouting();
+    app.UseRouting();
 
 app.UseAuthorization();
 
