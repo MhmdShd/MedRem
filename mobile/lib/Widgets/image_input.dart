@@ -3,8 +3,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class imageInput extends StatefulWidget {
-  const imageInput({super.key});
-
+  const imageInput({required this.passFunction, super.key});
+  final Function(XFile) passFunction;
   @override
   State<StatefulWidget> createState() {
     return _imageInputState();
@@ -22,6 +22,7 @@ class _imageInputState extends State<imageInput> {
     }
     setState(() {
       _selectedImage = File(pickedImage.path);
+      widget.passFunction(pickedImage);
       _selectedImageName = pickedImage.name;
     });
   }
@@ -43,7 +44,6 @@ class _imageInputState extends State<imageInput> {
     return Container(
         height: 50,
         width: 50,
-        // alignment: Align,
         child: content);
   }
 }

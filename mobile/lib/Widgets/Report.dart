@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile/Widgets/image_input.dart';
 import 'package:mobile/Widgets/text_field.dart';
 
@@ -16,7 +17,7 @@ class _Report extends State<Report> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _fileController = TextEditingController();
-
+  XFile? _selectedImage;
   void _submitReport() {
     if (_descriptionController.text.trim().isEmpty) {
       showDialog(
@@ -37,7 +38,11 @@ class _Report extends State<Report> {
       //widget.submitReport();
     }
   }
-
+  void _getImageData(XFile image){
+    setState(() {
+      _selectedImage = image;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -68,7 +73,7 @@ class _Report extends State<Report> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(child: imageInput()),
+                    Expanded(child: imageInput(passFunction: _getImageData,)),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);

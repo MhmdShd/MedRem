@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile/Widgets/image_input.dart';
-import 'package:mobile/pages/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/models/reminder.dart';
 import 'package:mobile/Widgets/text_field.dart';
 import 'package:mobile/Widgets/radio_card.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:mobile/Widgets/test.dart';
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
+
 
 final formatter = DateFormat.yMd();
 
@@ -33,11 +33,18 @@ class _newReminderState extends State<NewReminder> {
   final _intervalController = TextEditingController();
   final _pillColorController = TextEditingController();
   List _selectedDays = [];
+  XFile? _selectedImage;
   DateTime? _selectedDate;
 
   int getInterval(stopDate) {
     DateTime now = DateTime.now();
     return (stopDate.difference(now).inHours / 24).round();
+  }
+
+  void _getImageData(XFile image){
+    setState(() {
+      _selectedImage = image;
+    });
   }
 
   void _presentDatePicker() async {
@@ -79,57 +86,38 @@ class _newReminderState extends State<NewReminder> {
       Reminder(
         name: _nameController.text,
         description: _descriptionController.text,
-        quantity: double.parse(_quantityController.text),
+        quantity: enteredAmount,
         quantityUnit: categoryUnit[_selectedCategory]!,
         color: _pillColorController.text,
         interval: _selectedDate!.toString(),
         categ: _selectedCategory,
       ),
     );
-    var message = {
-      'name': _nameController.text,
-      'description': _descriptionController.text,
-      'quantity': double.parse(_quantityController.text),
-      'quantityUnit': categoryUnit[_selectedCategory]!,
-      'color': _pillColorController.text,
-      'interval': _selectedDate!.toString(),
-      'categ': categoryValue[_selectedCategory]
-    };
-    print(message);
-    // Map<String, dynamic> message1 = {
-    //   'name': _nameController.text,
-    //   'description': _descriptionController.text,
-    //   'quantity': double.parse(_quantityController.text),
-    //   'quantityUnit': categoryUnit[_selectedCategory]!,
-    //   'color': _pillColorController.text,
-    //   'interval': _selectedDate!.toString(),
-    //   'categ': categoryValue[_selectedCategory]
-    // };
+    final url = Uri.parse('https://10.0.2.2:7044/api/schedule/Create');
+    var request =
+        http.Request('POST', url);
+    var headers = {'Content-Type': 'application/json'};
 
-    // String formattedRequestBody(Map<String, dynamic> message) {
-    //   var jsonMessage = jsonEncode(message);
-    //   // Pretty print the JSON with line breaks and indentations
-    //   var formattedString =
-    //       const JsonEncoder.withIndent('    ').convert(message);
-    //   // To match your exact format with \r\n line endings
-    //   return formattedString.replaceAll('\n', '\r\n');
-    // }
-
-    // var requestBody = formattedRequestBody(message1);
-    // var headers = {'Content-Type': 'application/json'};
-    // var request = http.Request(
-    //     'POST', Uri.parse('http://localhost4200/api/schedule/Create'));
-    // request.body = requestBody;
-    // request.headers.addAll(headers);
-
-    // http.StreamedResponse response = await request.send();
-
-    // if (response.statusCode == 200) {
-    //   print(await response.stream.bytesToString());
-    // } else {
-    //   print(response.reasonPhrase);
-    // }
-
+    request.body = json.encode(
+        {
+            "PillId": null,
+            "UserId": 2,
+            "PillName": _nameController.text,
+            "PillShape": "Rouasdasnd",
+            "PillType": categoryValue[_selectedCategory],
+            "PillColor": _pillColorController.text,
+            "Description": _descriptionController.text,
+            "Image": _selectedImage!.path.toString(),
+            "FinishDate": _selectedDate.toString().split(' ')[0],
+            "Dosage": enteredAmount.toString(),
+            "Frequency": _selectedDays,
+            "Time": ["12:00", "18:00", "13:14"]
+        },
+      );
+    print(_selectedDate.toString());
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    print(response.statusCode);
     Navigator.pop(context);
   }
 
@@ -389,7 +377,7 @@ class _newReminderState extends State<NewReminder> {
                   controller: _pillColorController,
                 ),
               ),
-              Expanded(child: imageInput())
+              Expanded(child: imageInput(passFunction : _getImageData))
             ],
           ),
 
@@ -417,7 +405,7 @@ class _newReminderState extends State<NewReminder> {
               ),
             ],
           ),
-          // MultiTimePickerInput(),
+          // TimePickerScreen(),
         ],
       ),
     );
